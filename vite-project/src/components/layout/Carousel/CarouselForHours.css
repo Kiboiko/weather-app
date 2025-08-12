@@ -1,0 +1,49 @@
+/* Основной контейнер */
+.carousel-wrapper {
+  position: relative;
+  padding: 0 30px; /* Оставляем место для стрелок */
+}
+
+/* Карусель */
+.ant-carousel {
+  position: static !important; /* Важно для позиционирования стрелок */
+}
+
+/* Стрелки */
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next {
+  width: 24px;
+  height: 24px;
+  z-index: 2;
+  color: #1890ff;
+  font-size: 24px;
+  opacity: 1 !important; /* Всегда видимые */
+}
+
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-next:hover {
+  color: #40a9ff;
+}
+
+/* Левая стрелка */
+.ant-carousel .slick-prev {
+  left: 0; /* Прижимаем к левому краю контейнера */
+}
+
+/* Правая стрелка */
+.ant-carousel .slick-next {
+  right: 0; /* Прижимаем к правому краю контейнера */
+}
+
+/* Иконки внутри стрелок */
+.ant-carousel .slick-prev:before,
+.ant-carousel .slick-next:before {
+  display: none; /* Убираем стандартные иконки */
+}
+
+/* Кастомные иконки (если используете @ant-design/icons) */
+.ant-carousel .slick-prev svg,
+.ant-carousel .slick-next svg {
+  width: 100%;
+  height: 100%;
+}
