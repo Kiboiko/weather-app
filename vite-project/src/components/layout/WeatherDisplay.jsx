@@ -4,6 +4,8 @@ import CardForHour from "./Card/CardForHour";
 import CarouselForHours from "./Carousel/CarouselForHours";
 import CitySelector from "../../CitySelector";
 import { fetchWeather } from "../../weather";
+import MainCard from "./MainCard/CurrentDay";
+import CurrentDay from "./MainCard/CurrentDay";
 
 const WeatherSimple = () => {
   const [weather, setWeather] = useState(null);
@@ -24,7 +26,13 @@ const WeatherSimple = () => {
           "wind_speed_10m",
           "visibility",
         ],
-        current: ["temperature_2m", "relative_humidity_2m", "is_day", "rain"],
+        current: [
+          "temperature_2m",
+          "relative_humidity_2m",
+          "is_day",
+          "rain",
+          "apparent_temperature",
+        ],
       };
 
       const url = "https://api.open-meteo.com/v1/forecast";
@@ -69,6 +77,7 @@ const WeatherSimple = () => {
           relative_humidity: current.variables(1).value(),
           is_day: current.variables(2).value(),
           rain: current.variables(3).value(),
+          apparent_temperature: current.variables(4).value().toFixed(0),
         },
         hourly: {
           times: hourlyTimes,
@@ -80,6 +89,7 @@ const WeatherSimple = () => {
             .slice(startIndex),
           wind_speeds: hourly.variables(3).valuesArray().slice(startIndex),
           visibilities: hourly.variables(4).valuesArray().slice(startIndex),
+          apparent_temperature: current.variables(5).value().toFixed(0),
         },
       });
     } catch (error) {
@@ -95,7 +105,7 @@ const WeatherSimple = () => {
     loadWeatherData(city.lat, city.lon);
   };
 
-  // Загрузка данных по умолчанию (Берлин)
+  //Загрузка данных по умолчанию (Берлин)
   useEffect(() => {
     if (!selectedCity) {
       loadWeatherData(52.52, 13.41); // Координаты Берлина по умолчанию
@@ -108,7 +118,7 @@ const WeatherSimple = () => {
   return (
     <div
       style={{
-        maxWidth: "600px",
+        maxWidth: "800px",
         margin: "20px auto",
         padding: "20px",
         border: "1px solid #ddd",
@@ -120,38 +130,10 @@ const WeatherSimple = () => {
         <CitySelector onCitySelect={handleCitySelect} />
       </div>
 
-      <h2 style={{ marginTop: 0 }}>
-        {selectedCity ? `Погода в ${selectedCity.name}` : "Погода сейчас"}
-      </h2>
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "20px",
-          padding: "15px",
-          background: weather.current.is_day ? "#f5f5f5" : "#333",
-          color: weather.current.is_day ? "#333" : "#fff",
-          borderRadius: "6px",
-        }}
-      >
-        <div style={{ fontSize: "48px", marginRight: "20px" }}>
-          {weather.current.temperature}°C
-        </div>
-        <div>
-          <div style={{ fontSize: "18px" }}>
-            {weather.current.is_day ? "☀️ День" : "🌙 Ночь"}
-          </div>
-          <div style={{ fontSize: "18px" }}>
-            {weather.current.rain > 0
-              ? `🌧️ Дождь: ${weather.current.rain}mm`
-              : "☁️ Без осадков"}
-          </div>
-          <div style={{ fontSize: "14px", opacity: 0.7 }}>
-            Обновлено: {weather.current.time.toLocaleTimeString()}
-          </div>
-        </div>
-      </div>
+      <CurrentDay
+        weather={weather}
+        city={selectedCity ? selectedCity.name : "Берлин"}
+      />
 
       <h3>Прогноз по часам</h3>
       <CarouselForHours weather={weather} />
