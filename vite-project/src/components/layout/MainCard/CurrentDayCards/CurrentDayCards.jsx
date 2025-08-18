@@ -1,36 +1,29 @@
-import CitySelector from "../../../CitySelector";
+import CitySelector from "../../../../CitySelector";
 import { Card } from "antd";
-import "./CurrentDay.css";
+import "./CurrentDayCards.css";
 const gridStyle = {
   textAlign: "center",
-  height: "2fr",
   border: "1px solid grey",
 };
 
 export default function CurrentDay({ weather, city }) {
   return (
     <div>
-      <div className="parent">
-        <Card style={gridStyle} variant="borderless">
-          {city}
-        </Card>
-        <Card style={gridStyle} variant="borderless">
-          {weather.current.temperature}°C
-        </Card>
-        <Card style={gridStyle} variant="borderless">
+      <div className="parentGrid">
+        <Card style={{ ...gridStyle, gridArea: "c" }} variant="borderless">
           {weather.current.is_day ? "☀️ День" : "🌙 Ночь"}
         </Card>
-        <Card style={gridStyle} variant="borderless">
+        <Card style={{ ...gridStyle, gridArea: "d" }} variant="borderless">
           {weather.current.rain > 0
             ? `🌧️ Дождь: ${weather.current.rain}mm`
             : "☁️ Без осадков"}
         </Card>
-        <Card style={gridStyle} variant="borderless">
+        <Card style={{ ...gridStyle, gridArea: "e" }} variant="borderless">
           {"Относительная влажность: " +
             weather.current.relative_humidity +
             "%"}
         </Card>
-        <Card style={gridStyle} variant="borderless">
+        <Card style={{ ...gridStyle, gridArea: "f" }} variant="borderless">
           {"Как ощущается: " + weather.current.apparent_temperature + "°C"}
         </Card>
       </div>

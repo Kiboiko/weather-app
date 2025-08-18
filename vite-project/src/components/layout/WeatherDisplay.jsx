@@ -4,8 +4,8 @@ import CardForHour from "./Card/CardForHour";
 import CarouselForHours from "./Carousel/CarouselForHours";
 import CitySelector from "../../CitySelector";
 import { fetchWeather } from "../../weather";
-import MainCard from "./MainCard/CurrentDay";
-import CurrentDay from "./MainCard/CurrentDay";
+import MainCard from "./MainCard/MainCard";
+import CurrentDay from "./MainCard/CurrentDayCards/CurrentDayCards";
 
 const WeatherSimple = () => {
   const [weather, setWeather] = useState(null);
@@ -118,7 +118,7 @@ const WeatherSimple = () => {
   return (
     <div
       style={{
-        maxWidth: "800px",
+        maxWidth: "70%",
         margin: "20px auto",
         padding: "20px",
         border: "1px solid #ddd",
@@ -130,7 +130,7 @@ const WeatherSimple = () => {
         <CitySelector onCitySelect={handleCitySelect} />
       </div>
 
-      <CurrentDay
+      <MainCard
         weather={weather}
         city={selectedCity ? selectedCity.name : "Берлин"}
       />

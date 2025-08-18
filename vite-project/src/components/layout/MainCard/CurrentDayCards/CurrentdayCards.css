@@ -1,0 +1,8 @@
+.parentGrid {
+  height: 30rem;
+  display: grid;
+  grid-template-areas:
+    "c d"
+    "e f";
+  gap: 10px;
+}
