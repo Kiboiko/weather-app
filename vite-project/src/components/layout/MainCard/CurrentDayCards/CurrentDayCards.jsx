@@ -1,70 +1,121 @@
-import CitySelector from "../../../../CitySelector";
-import { Card } from "antd";
+import { Card, Space, Typography } from "antd";
+import { SunOutlined, MoonOutlined } from "@ant-design/icons";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./CurrentDayCards.css";
 const gridStyle = {
   textAlign: "center",
-  border: "1px solid grey",
+  backgroundColor: "rgba(73, 80, 87, 0.95)",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%",
+};
+
+const cardHeadStyle = {
+  borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+  padding: "0 16px",
+  color: "#fff",
+  fontSize: "1.2rem",
+  fontWeight: "bold",
 };
 
 export default function CurrentDay({ weather, city }) {
   return (
     <div>
       <div className="parentGrid">
-        <Card style={{ ...gridStyle, gridArea: "c" }} variant="borderless">
-          {weather.current.is_day ? "☀️ День" : "🌙 Ночь"}
+        <Card
+          style={{ ...gridStyle, gridArea: "c" }}
+          headStyle={cardHeadStyle}
+          title="Время суток"
+          variant="borderless"
+        >
+          <Space direction="vertical" align="center">
+            {weather.current.is_day ? (
+              <SunOutlined style={{ fontSize: "2rem", color: "white" }} />
+            ) : (
+              <MoonOutlined style={{ fontSize: "2rem", color: "white" }} />
+            )}
+            <Typography.Text style={{ color: "#fff" }}>
+              {weather.current.is_day ? "День" : "Ночь"}
+            </Typography.Text>
+          </Space>
         </Card>
-        <Card style={{ ...gridStyle, gridArea: "d" }} variant="borderless">
-          {weather.current.rain > 0
+        <Card
+          style={{ ...gridStyle, gridArea: "d" }}
+          headStyle={cardHeadStyle}
+          variant="borderless"
+          title="Осадки"
+        >
+          {/* {weather.current.rain > 0
             ? `🌧️ Дождь: ${weather.current.rain}mm`
-            : "☁️ Без осадков"}
+            : "☁️ Без осадков"} */}
+          <Space direction="vertical" align="center">
+            {weather.current.rain > 0 ? (
+              <i
+                className="bi bi-cloud-rain"
+                style={{ fontSize: "2rem", color: "white" }}
+              ></i>
+            ) : (
+              <i
+                className="bi bi-cloud"
+                style={{ fontSize: "2rem", color: "white" }}
+              ></i>
+            )}
+            <Typography.Text style={{ color: "#fff" }}>
+              {weather.current.rain > 0
+                ? `Дождь: ${weather.current.rain}mm`
+                : "Без осадков"}
+            </Typography.Text>
+          </Space>
         </Card>
-        <Card style={{ ...gridStyle, gridArea: "e" }} variant="borderless">
-          {"Относительная влажность: " +
-            weather.current.relative_humidity +
-            "%"}
+        <Card
+          style={{ ...gridStyle, gridArea: "e" }}
+          headStyle={cardHeadStyle}
+          variant="borderless"
+          title="Влажность"
+        >
+          <Space direction="vertical" align="center">
+            <i
+              class="bi bi-moisture"
+              style={{ fontSize: "2rem", color: "white" }}
+            ></i>
+            <Typography.Text style={{ color: "#fff" }}>
+              {weather.current.relative_humidity + "%"}
+            </Typography.Text>
+          </Space>
         </Card>
-        <Card style={{ ...gridStyle, gridArea: "f" }} variant="borderless">
-          {"Как ощущается: " + weather.current.apparent_temperature + "°C"}
+        <Card
+          style={{ ...gridStyle, gridArea: "f" }}
+          headStyle={cardHeadStyle}
+          variant="borderless"
+          title="Как ощущается"
+        >
+          <Space direction="vertical" align="center">
+            {weather.current.apparent_temperature < 0 ? (
+              <i
+                class="bi bi-thermometer-low"
+                style={{ fontSize: "2rem", color: "white" }}
+              ></i>
+            ) : null}
+            {weather.current.apparent_temperature > 0 &&
+            weather.current.apparent_temperature < 24 ? (
+              <i
+                class="bi bi-thermometer-half"
+                style={{ fontSize: "2rem", color: "white" }}
+              ></i>
+            ) : null}
+            {weather.current.apparent_temperature > 24 ? (
+              <i
+                class="bi bi-thermometer-high"
+                style={{ fontSize: "2rem", color: "white" }}
+              ></i>
+            ) : null}
+            <Typography.Text style={{ color: "#fff" }}>
+              {weather.current.apparent_temperature + "°C"}
+            </Typography.Text>
+          </Space>
         </Card>
       </div>
     </div>
   );
-}
-
-{
-  /* <div style={{ fontSize: "48px", marginRight: "20px" }}>
-          {weather.current.temperature}°C
-        </div>
-        <div>
-          <div style={{ fontSize: "18px" }}>
-            {weather.current.is_day ? "☀️ День" : "🌙 Ночь"}
-          </div>
-          <div style={{ fontSize: "18px" }}>
-            {weather.current.rain > 0
-              ? `🌧️ Дождь: ${weather.current.rain}mm`
-              : "☁️ Без осадков"}
-          </div>
-          <div style={{ fontSize: "18px" }}>
-            {"Относительная влажность:" +
-              weather.current.relative_humidity +
-              "%"}
-          </div>
-          <div style={{ fontSize: "14px", opacity: 0.7 }}>
-            Обновлено: {weather.current.time.toLocaleTimeString()}
-          </div>
-        </div> */
-}
-
-{
-  /* <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "20px",
-          padding: "15px",
-          background: weather.current.is_day ? "#f5f5f5" : "#333",
-          color: weather.current.is_day ? "#333" : "#fff",
-          borderRadius: "6px",
-        }}
-      ></div> */
 }

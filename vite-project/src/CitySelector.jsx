@@ -54,8 +54,8 @@ export default function CitySelector({ onCitySelect }) {
     <div style={{ width: "100%" }}>
       <Select
         showSearch
-        placeholder="Начните вводить город (минимум 2 символа)"
-        style={{ width: "100%" }}
+        placeholder="Начните вводить город"
+        style={{ width: "100%", height: "4vh" }}
         filterOption={false}
         onSearch={handleSearch}
         onChange={handleSelect}

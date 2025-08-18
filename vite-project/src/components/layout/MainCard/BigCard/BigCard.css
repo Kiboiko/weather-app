@@ -1,3 +1,4 @@
 .bigCard {
   border: 1px solid GREY;
+  min-height: 50vh;
 }

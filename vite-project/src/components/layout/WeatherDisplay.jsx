@@ -118,21 +118,23 @@ const WeatherSimple = () => {
   return (
     <div
       style={{
-        maxWidth: "70%",
+        maxWidth: "80%",
+        height: "90vh", // Используем viewport height вместо %
+        minHeight: "500px", // Минимальная высота на случай маленьких экранов
         margin: "20px auto",
         padding: "20px",
-        border: "1px solid #ddd",
         borderRadius: "8px",
         fontFamily: "Arial, sans-serif",
+        backgroundColor: "rgba(108, 117, 125, 0.95)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
       }}
     >
-      <div style={{ marginBottom: "20px" }}>
-        <CitySelector onCitySelect={handleCitySelect} />
-      </div>
-
       <MainCard
         weather={weather}
         city={selectedCity ? selectedCity.name : "Берлин"}
+        onCitySelect={handleCitySelect}
       />
 
       <h3>Прогноз по часам</h3>

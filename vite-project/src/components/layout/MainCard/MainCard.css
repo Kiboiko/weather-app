@@ -1,5 +1,9 @@
 .MainCard {
   display: grid;
-  grid-template-columns: 45% 45%;
-  column-gap: 10%;
+  grid-template-columns: 1fr 1fr; /* Две колонки равной ширины */
+  grid-template-rows: auto auto; /* Две строки с автоматической высотой */
+  grid-template-areas:
+    "a b"
+    "a c";
+  gap: 20px;
 }
