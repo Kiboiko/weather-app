@@ -23,13 +23,21 @@ export default function BigCard({ weather, city }) {
 
     return () => clearInterval(dateInterval);
   }, []);
-
   return (
     <div className="bigCard">
-      <p>{city}</p>
-      <p>{weather.current.temperature}°C</p>
-      <p>{currentDate}</p>
-      <p>{currentTime}</p>
+      <p className="WeatherApp">
+        <span className="Weather">Weather</span>
+        <span className="App">App</span>
+      </p>
+      <div className="MainDisplay">
+        <p className="cityName">{city}</p>
+        <p className="weatherCurrentTemperature">
+          {" "}
+          {weather.current.temperature}°C
+        </p>
+        <p className="currentDate">{currentDate}</p>
+        <p className="currentTime">{currentTime}</p>
+      </div>
     </div>
   );
 }

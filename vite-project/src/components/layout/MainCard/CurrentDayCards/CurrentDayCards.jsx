@@ -35,7 +35,14 @@ export default function CurrentDay({ weather, city }) {
             ) : (
               <MoonOutlined style={{ fontSize: "2rem", color: "white" }} />
             )}
-            <Typography.Text style={{ color: "#fff" }}>
+            <Typography.Text
+              style={{
+                fontSize: "1.5rem",
+                color: "#fff",
+                marginTop: "auto",
+                paddingTop: "10px",
+              }}
+            >
               {weather.current.is_day ? "День" : "Ночь"}
             </Typography.Text>
           </Space>
@@ -46,9 +53,6 @@ export default function CurrentDay({ weather, city }) {
           variant="borderless"
           title="Осадки"
         >
-          {/* {weather.current.rain > 0
-            ? `🌧️ Дождь: ${weather.current.rain}mm`
-            : "☁️ Без осадков"} */}
           <Space direction="vertical" align="center">
             {weather.current.rain > 0 ? (
               <i
@@ -61,7 +65,14 @@ export default function CurrentDay({ weather, city }) {
                 style={{ fontSize: "2rem", color: "white" }}
               ></i>
             )}
-            <Typography.Text style={{ color: "#fff" }}>
+            <Typography.Text
+              style={{
+                fontSize: "1.5rem",
+                color: "#fff",
+                marginTop: "auto",
+                paddingTop: "10px",
+              }}
+            >
               {weather.current.rain > 0
                 ? `Дождь: ${weather.current.rain}mm`
                 : "Без осадков"}
@@ -79,7 +90,14 @@ export default function CurrentDay({ weather, city }) {
               class="bi bi-moisture"
               style={{ fontSize: "2rem", color: "white" }}
             ></i>
-            <Typography.Text style={{ color: "#fff" }}>
+            <Typography.Text
+              style={{
+                fontSize: "1.5rem",
+                color: "#fff",
+                marginTop: "auto",
+                paddingTop: "10px",
+              }}
+            >
               {weather.current.relative_humidity + "%"}
             </Typography.Text>
           </Space>
@@ -110,7 +128,14 @@ export default function CurrentDay({ weather, city }) {
                 style={{ fontSize: "2rem", color: "white" }}
               ></i>
             ) : null}
-            <Typography.Text style={{ color: "#fff" }}>
+            <Typography.Text
+              style={{
+                fontSize: "1.5rem",
+                color: "#fff",
+                marginTop: "auto",
+                paddingTop: "10px",
+              }}
+            >
               {weather.current.apparent_temperature + "°C"}
             </Typography.Text>
           </Space>

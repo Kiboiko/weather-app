@@ -115,22 +115,25 @@ const WeatherSimple = () => {
   if (loading) return <div>Загрузка данных о погоде...</div>;
   if (!weather) return <div>Не удалось загрузить данные</div>;
 
+  const weatherDisplayStyle = {
+    maxWidth: "80%",
+    height: "90vh",
+    minHeight: "500px",
+    margin: "20px auto",
+    padding: "20px",
+    borderRadius: "8px",
+    fontFamily: "Arial, sans-serif",
+    backgroundColor: "rgba(108, 117, 125, 0.8)",
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(9.1px)",
+    WebkitBackdropFilter: "blur(9.1px)",
+  };
+
   return (
-    <div
-      style={{
-        maxWidth: "80%",
-        height: "90vh", // Используем viewport height вместо %
-        minHeight: "500px", // Минимальная высота на случай маленьких экранов
-        margin: "20px auto",
-        padding: "20px",
-        borderRadius: "8px",
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "rgba(108, 117, 125, 0.95)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-      }}
-    >
+    <div className="WeatherDisplay" style={weatherDisplayStyle}>
       <MainCard
         weather={weather}
         city={selectedCity ? selectedCity.name : "Берлин"}

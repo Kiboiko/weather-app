@@ -1,5 +1,5 @@
 .parentGrid {
-  height: 44vh;
+  height: 54vh;
   display: grid;
   grid-template-areas:
     "c d"
