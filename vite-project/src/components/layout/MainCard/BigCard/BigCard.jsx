@@ -31,12 +31,11 @@ export default function BigCard({ weather, city }) {
       </p>
       <div className="MainDisplay">
         <p className="cityName">{city}</p>
-        <p className="weatherCurrentTemperature">
-          {" "}
-          {weather.current.temperature}°C
-        </p>
         <p className="currentDate">{currentDate}</p>
         <p className="currentTime">{currentTime}</p>
+        <p className="weatherCurrentTemperature">
+          {weather.current.temperature}°C
+        </p>
       </div>
     </div>
   );

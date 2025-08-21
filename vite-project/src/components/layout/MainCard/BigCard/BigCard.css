@@ -1,14 +1,13 @@
 .bigCard {
   border: 1px solid GREY;
-  min-height: 60vh;
+  min-height: 59.5vh;
   background-color: rgba(73, 80, 87, 0.95);
   border-radius: 10px;
-  padding-left: 10px;
+  position: relative;
 }
 
 .WeatherApp {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 3vh;
   white-space: nowrap; /* Предотвращает перенос слов */
   font-size: 2rem;
   color: white;
@@ -28,7 +27,12 @@ span.App {
 }
 
 div.MainDisplay {
-  border: 1px solid black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: auto;
+  margin-bottom: auto;
   display: block;
   width: fit-content;
   margin-left: auto;
@@ -38,10 +42,13 @@ div.MainDisplay {
 }
 
 p.cityName {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 p.weatherCurrentTemperature {
+  font-size: 5rem;
+  font-weight: 700;
 }
 
 p.currentDate {

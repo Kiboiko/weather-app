@@ -7,7 +7,7 @@ export default function CarouselForHours({ weather }) {
         arrows
         infinite={false}
         dots={false}
-        style={{ width: "15rem", textAlign: "center" }}
+        style={{ width: "30rem", textAlign: "center" }}
       >
         {weather.hourly.times.map((time, i) => (
           <div key={`hour-${i}-${time.getTime()}`}>
@@ -15,6 +15,9 @@ export default function CarouselForHours({ weather }) {
               time={time.getHours()}
               temp={weather.hourly.temperatures[i].toFixed(0)}
               rain={weather.hourly.rains[i]}
+              humidity={weather.hourly.relative_humidities[i]}
+              wind_speeds={weather.hourly.wind_speeds[i].toFixed(1)}
+              visibilities={weather.hourly.visibilities[i]}
             />
           </div>
         ))}

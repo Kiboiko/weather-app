@@ -33,6 +33,8 @@ const WeatherSimple = () => {
           "rain",
           "apparent_temperature",
         ],
+        forecast_days: 1, // Добавляем параметр для получения только 1 дня
+        timezone: "auto",
       };
 
       const url = "https://api.open-meteo.com/v1/forecast";
@@ -43,32 +45,30 @@ const WeatherSimple = () => {
       const current = response.current();
       const hourly = response.hourly();
 
-      // Получаем текущую дату
+      // Получаем текущее время
       const now = new Date();
-      const endOfDay = new Date(now);
-      endOfDay.setHours(23, 59, 59, 999);
+      const currentTime = now.getTime();
 
-      // Фильтруем часы только до конца текущих суток
-      const hourlyTimes = [
-        ...Array(
-          (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval()
-        ),
-      ]
-        .map(
-          (_, i) =>
-            new Date(
-              (Number(hourly.time()) +
-                i * hourly.interval() +
-                utcOffsetSeconds) *
-                1000
-            )
-        )
-        .filter((time) => time <= endOfDay);
+      // Создаем массив временных меток
+      const hourlyTimes = [];
+      const hourlyInterval = hourly.interval();
+      const startTime = Number(hourly.time());
 
-      // Получаем индексы для среза данных по отфильтрованному времени
-      const hourlyDataLength = hourlyTimes.length;
-      const totalHourlyPoints = hourly.variables(0).valuesArray().length;
-      const startIndex = totalHourlyPoints - hourlyDataLength;
+      // Генерируем временные метки для всех доступных часов
+      for (let i = 0; i < hourly.variables(0).valuesArray().length; i++) {
+        const timeMs =
+          (startTime + i * hourlyInterval + utcOffsetSeconds) * 1000;
+        hourlyTimes.push(new Date(timeMs));
+      }
+
+      // Фильтруем часы, которые еще не наступили (от текущего момента)
+      const futureHourlyTimes = hourlyTimes.filter(
+        (time) => time.getTime() >= currentTime
+      );
+
+      // Берем первые 24 часа будущего времени или все доступные, если меньше
+      const hoursToShow = Math.min(24, futureHourlyTimes.length);
+      const startIndex = hourlyTimes.length - futureHourlyTimes.length;
 
       setWeather({
         current: {
@@ -80,16 +80,27 @@ const WeatherSimple = () => {
           apparent_temperature: current.variables(4).value().toFixed(0),
         },
         hourly: {
-          times: hourlyTimes,
-          temperatures: hourly.variables(0).valuesArray().slice(startIndex),
-          rains: hourly.variables(1).valuesArray().slice(startIndex),
+          times: futureHourlyTimes.slice(0, hoursToShow),
+          temperatures: hourly
+            .variables(0)
+            .valuesArray()
+            .slice(startIndex, startIndex + hoursToShow),
+          rains: hourly
+            .variables(1)
+            .valuesArray()
+            .slice(startIndex, startIndex + hoursToShow),
           relative_humidities: hourly
             .variables(2)
             .valuesArray()
-            .slice(startIndex),
-          wind_speeds: hourly.variables(3).valuesArray().slice(startIndex),
-          visibilities: hourly.variables(4).valuesArray().slice(startIndex),
-          apparent_temperature: current.variables(5).value().toFixed(0),
+            .slice(startIndex, startIndex + hoursToShow),
+          wind_speeds: hourly
+            .variables(3)
+            .valuesArray()
+            .slice(startIndex, startIndex + hoursToShow),
+          visibilities: hourly
+            .variables(4)
+            .valuesArray()
+            .slice(startIndex, startIndex + hoursToShow),
         },
       });
     } catch (error) {
@@ -140,7 +151,7 @@ const WeatherSimple = () => {
         onCitySelect={handleCitySelect}
       />
 
-      <h3>Прогноз по часам</h3>
+      <h2 style={{ color: "white" }}>Прогноз по часам</h2>
       <CarouselForHours weather={weather} />
     </div>
   );
