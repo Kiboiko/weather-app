@@ -56,3 +56,7 @@ p.currentDate {
 
 p.currentTime {
 }
+
+p.currentWeatherCode {
+  font-size: 2rem;
+}

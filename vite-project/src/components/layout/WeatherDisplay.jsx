@@ -25,6 +25,7 @@ const WeatherSimple = () => {
           "relative_humidity_2m",
           "wind_speed_10m",
           "visibility",
+          "weather_code",
         ],
         current: [
           "temperature_2m",
@@ -32,6 +33,7 @@ const WeatherSimple = () => {
           "is_day",
           "rain",
           "apparent_temperature",
+          "weather_code",
         ],
         forecast_days: 1, // Добавляем параметр для получения только 1 дня
         timezone: "auto",
@@ -78,6 +80,7 @@ const WeatherSimple = () => {
           is_day: current.variables(2).value(),
           rain: current.variables(3).value(),
           apparent_temperature: current.variables(4).value().toFixed(0),
+          weather_code: current.variables(5).value(),
         },
         hourly: {
           times: futureHourlyTimes.slice(0, hoursToShow),
@@ -99,6 +102,10 @@ const WeatherSimple = () => {
             .slice(startIndex, startIndex + hoursToShow),
           visibilities: hourly
             .variables(4)
+            .valuesArray()
+            .slice(startIndex, startIndex + hoursToShow),
+          weather_code: hourly
+            .variables(5)
             .valuesArray()
             .slice(startIndex, startIndex + hoursToShow),
         },
@@ -128,10 +135,12 @@ const WeatherSimple = () => {
 
   const weatherDisplayStyle = {
     maxWidth: "80%",
-    height: "90vh",
-    minHeight: "500px",
+    height: "93vh",
+    minHeight: "520px",
     margin: "20px auto",
     padding: "20px",
+    paddingBottom: "0px",
+    marginBottom: "0px",
     borderRadius: "8px",
     fontFamily: "Arial, sans-serif",
     backgroundColor: "rgba(108, 117, 125, 0.8)",
@@ -151,7 +160,16 @@ const WeatherSimple = () => {
         onCitySelect={handleCitySelect}
       />
 
-      <h2 style={{ color: "white" }}>Прогноз по часам</h2>
+      <h1
+        style={{
+          color: "white",
+          paddingBottom: "0px",
+          marginBottom: "0px",
+          height: "auto",
+        }}
+      >
+        Прогноз по часам
+      </h1>
       <CarouselForHours weather={weather} />
     </div>
   );
